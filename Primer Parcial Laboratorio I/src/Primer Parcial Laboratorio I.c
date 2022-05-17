@@ -13,6 +13,7 @@ int main(void) {
 int salir;
 int opcion;
 int subOpcion;
+int opcionVenta;
 int idUsuarioIngresado;
 int menu=0;
 
@@ -42,6 +43,7 @@ do{
 				"<>                                <>\n"
 				"<>   (1) - INGRESAR               <>\n"
 				"<>   (2) - REGISTRARSE            <>\n"
+				"<>   (3) - HARCODEAR 10           <>\n"
 				"<>                                <>\n"
 				"<>   (0) - SALIR                  <>\n"
 				"<>                                <>\n"
@@ -130,10 +132,32 @@ do{
 			case 2:// VENDER
 				puts("<<->>+------------------------+<<->>\n"
 					 "<>-<>|        VENDER          |<>-<>\n"
-					 "<<->>+------------------------+<<->>\n");
-				if(P_AltaProducto(productos,MAX_PRODUCTOS,idUsuarioIngresado)>=0){
-					puts("<<<<<|     Carga  exitosa     |>>>>>\n");
-				}
+					 "<<->>+------------------------+<<->>\n"
+					 "<>                                <>\n"
+					 "<>   (1) - VENDER                 <>\n"
+					 "<>   (2) - RECARGAR STOCK         <>\n"
+					 "<>                                <>\n"
+					 "<>   (0) - SALIR                  <>\n"
+					 "<>                                <>\n"
+					 "<<->>+------------------------+<<->>\n\n");
+					if(getIntInRange("     Ingrese una opcion:",3,0,2,"Opcion invalida",&opcionVenta) !=1){
+								puts("<<->>-------<| ERROR |>-------<<->>");
+								menu=0;
+								idUsuarioIngresado=-1;
+					}
+					switch(opcionVenta){
+					case 1://COMPRAR
+					if(P_AltaProducto(productos,MAX_PRODUCTOS,idUsuarioIngresado)>=0){
+						puts("<<<<<|     Carga  exitosa     |>>>>>\n");
+					}
+						break;
+					case 2:
+					if(P_ReponerStockProducto(productos,MAX_PRODUCTOS,idUsuarioIngresado)>=0){
+						puts("<<<<| Recarga de stock exitosa |>>>>\n");
+					}
+						break;
+					}
+
 				break;
 			case 3://ESTADO DE COMPRAS
 				if(T_VerificarTreckingUsuario(tracking,MAX_TRACKING,idUsuarioIngresado)>0){
@@ -177,11 +201,13 @@ do{
 					"<>   (3) - BAJA DE UN PRODUCTO    <>\n"
 					"<>   (4) - BAJA DE UN USUARIO     <>\n"
 					"<>   (5) - VER TRACKING GLOBAL    <>\n"
+					"<>   (6) - NUSCAR PRODUCTO        <>\n"
+					"<>   (7) - CANCELAR BAJA USUARIO  <>\n"
 					"<>                                <>\n"
 					"<>   (0) - SALIR                  <>\n"
 					"<>                                <>\n"
 					"<<->>+<><><><><><><><><><><><>+<<->>\n\n");
-			if(getIntInRange("     Ingrese una opcion:",3,0,6,"Opcion invalida",&subOpcion) !=1){
+			if(getIntInRange("     Ingrese una opcion:",3,0,7,"Opcion invalida",&subOpcion) !=1){
 				puts("<<->>-------<| ERROR |>-------<<->>");
 				menu=0;
 				idUsuarioIngresado=-1;
@@ -243,6 +269,18 @@ do{
 				}
 				break;
 			case 6://CANCELAR BAJA
+				if(P_ContarProductos(productos,MAX_PRODUCTOS,OCUPADO)>0){
+					puts("<<->>+------------------------+<<->>\n"
+					     "<>-<>|    BUSCAR PRODUCTO     |<>-<>\n"
+						 "<<->>+------------------------+<<->>\n");
+					if(P_FiltrarPorNombreDeProducto(productos,MAX_PRODUCTOS,ALL)!=1){
+					puts("<<->>--<| Sin priductos con ese nombre |>--<<->>");
+					}
+				}
+				else{puts("<<>>| Sin productos registrados |<<>>");
+				}
+				break;
+			case 7://CANCELAR BAJA
 				if(U_ContarUsuarios(usuarios,MAX_USUARIOS,BAJA)>0){
 					puts("<<->>+------------------------+<<->>\n"
 						 "<>-<>|     CANCELAR BAJA      |<>-<>\n"

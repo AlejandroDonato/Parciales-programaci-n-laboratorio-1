@@ -130,11 +130,11 @@ int P_MostrarProductosComprador(eProductos productos[],int cantidad,int estado,i
 	return contador;
 }
 
-void P_MostrarProducto(eProductos productos[],int pocicion){
+void P_MostrarProducto(eProductos productos[],int posicion){
 
 	char auxCategoriaProducto[MAX_CHAR];
 
-	switch (productos[pocicion].categoria){
+	switch (productos[posicion].categoria){
 	case 1:
 		strcpy(auxCategoriaProducto,"Construcción");
 		break;
@@ -168,11 +168,11 @@ void P_MostrarProducto(eProductos productos[],int pocicion){
 	}
 	printf( "| %-5d| %-20s| %-20s| $%-19.2f| %-10d|\n"
 			"+------+---------------------+---------------------+---------------------+-----------+\n",
-			productos[pocicion].idProducto,
-			productos[pocicion].nombreProducto,
+			productos[posicion].idProducto,
+			productos[posicion].nombreProducto,
 			auxCategoriaProducto,
-			productos[pocicion].precio,
-			productos[pocicion].stock);
+			productos[posicion].precio,
+			productos[posicion].stock);
 
 }
 
@@ -242,16 +242,16 @@ int P_AltaProducto(eProductos productos[],int cantidad,int idUsuario){
 							"<>-<>|       CATEGORIAS       |<>-<>\n"
 							"<<->>+------------------------+<<->>\n"
 							"<>                                <>\n"
-							"<>    (0) - Hogar y Muebles       <>\n"
-							"<>    (1) - Supermercado          <>\n"
-							"<>    (2) - Tecnologia            <>\n"
-							"<>    (3) - Herramientas          <>\n"
-							"<>    (4) - Electrodomesticos     <>\n"
-							"<>    (5) - Construcción          <>\n"
-							"<>    (6) - Moda                  <>\n"
-							"<>    (7) - Juegos y Juguetes     <>\n"
-							"<>    (8) - Belleza               <>\n"
-							"<>    (9) - Deportes              <>\n"
+							"<>    (0) - Belleza               <>\n"
+							"<>    (1) - Construcción          <>\n"
+							"<>    (2) - Electrodomesticos     <>\n"
+							"<>    (3) - Deportes              <>\n"
+							"<>    (4) - Herramientas          <>\n"
+							"<>    (5) - Hogar y Muebles       <>\n"
+							"<>    (6) - Juegos y Juguetes     <>\n"
+							"<>    (7) - Moda                  <>\n"
+							"<>    (8) - Supermercado          <>\n"
+							"<>    (9) - Tecnologia            <>\n"
 							"<>                                <>\n"
 							"<<->>+<><><><><><><><><><><><>+<<->>\n\n");
 					if(getIntInRange("Ingrese categoria:",3,0,9,"Opcion invalida,",&auxCategoria) == 1){
@@ -284,15 +284,15 @@ int P_AltaProducto(eProductos productos[],int cantidad,int idUsuario){
 return rtn;
 }
 
-int P_AddProducto(eProductos productos[], int pocicion, int id, char nombre[],float precio,short int categoria, int stock,int idUsuario){
+int P_AddProducto(eProductos productos[], int posicion, int id, char nombre[],float precio,short int categoria, int stock,int idUsuario){
 	int rtn;
-	if(productos != NULL && pocicion > -1){
-		productos[pocicion].idProducto = id;
-		productos[pocicion].idUsuario = idUsuario;
-		strcpy(productos[pocicion].nombreProducto,nombre);
-		productos[pocicion].precio = precio;
-		productos[pocicion].categoria = categoria;
-		productos[pocicion].stock = stock;
+	if(productos != NULL && posicion > -1){
+		productos[posicion].idProducto = id;
+		productos[posicion].idUsuario = idUsuario;
+		strcpy(productos[posicion].nombreProducto,nombre);
+		productos[posicion].precio = precio;
+		productos[posicion].categoria = categoria;
+		productos[posicion].stock = stock;
 		rtn = 1;
 	}
 	else{rtn = -1;
@@ -302,7 +302,7 @@ return rtn;
 
 int P_AltaProductoExistente(eProductos productos[],int cantidad){
 	int rtn;
-	int pocicion;
+	int posicion;
 	int auxId;
 	int maxId;
 
@@ -310,15 +310,15 @@ int P_AltaProductoExistente(eProductos productos[],int cantidad){
 		P_MostrarProductos(productos,cantidad,BAJA);
 		maxId = P_BuscarIdMayor(productos,cantidad,BAJA);
 		if(getIntInRange("Ingrese una id:",3,0,maxId,"Id invalida,",&auxId)==1){
-			pocicion = P_FindProductoById(productos,cantidad,auxId);
+			posicion = P_FindProductoById(productos,cantidad,auxId);
 			puts("Producto a dar de alta:\n"
 				 "+------+---------------------+---------------------+-----------+-----------+\n"
 				 "|  Id  | Nombre de Producto  | Categoria           | Precio    | Stock     |\n"
 				 "+------+---------------------+---------------------+-----------+-----------+\n");
-			P_MostrarProducto(productos,pocicion);
+			P_MostrarProducto(productos,posicion);
 			puts(" ");
 			if(PedirVerificacion("Desea dar de alta este producto?","Opcion invalida")==1){
-				productos[pocicion].isEmpty = OCUPADO;
+				productos[posicion].isEmpty = OCUPADO;
 				rtn =1;
 			}
 			else{rtn =-3;//error en la verificacion o canccelacion de accion
@@ -346,25 +346,25 @@ int P_ModificarProducto(eProductos productos[], int cantidad){
 		int finalizar;
 		int opcion;
 		int maxId;
-		int pocicion;
+		int posicion;
 
 		maxId = P_BuscarIdMayor(productos,cantidad,OCUPADO);
 		P_MostrarProductos(productos,cantidad,OCUPADO);
 
 
 		if(getIntInRange("Ingrese una id:",3,0,maxId,"Id invalida,",&auxId)==1){
-			pocicion = P_FindProductoById(productos,cantidad,auxId);
+			posicion = P_FindProductoById(productos,cantidad,auxId);
 			puts("Producto a Modificar:\n"
 				 "+------+---------------------+---------------------+-----------+-----------+\n"
 				 "|  Id  | Nombre de Producto  | Categoria           | Precio    | Stock     |\n"
 				 "+------+---------------------+---------------------+-----------+-----------+\n");
-			P_MostrarProducto(productos,pocicion);
+			P_MostrarProducto(productos,posicion);
 			puts(" ");
-			strcpy(auxNombre,productos[pocicion].nombreProducto);
-			auxPrecio = productos[pocicion].precio;
-			auxCategoria = productos[pocicion].categoria;
-			auxStock = productos[pocicion].stock;
-			auxIdUsuario = productos[pocicion].idUsuario;
+			strcpy(auxNombre,productos[posicion].nombreProducto);
+			auxPrecio = productos[posicion].precio;
+			auxCategoria = productos[posicion].categoria;
+			auxStock = productos[posicion].stock;
+			auxIdUsuario = productos[posicion].idUsuario;
 			do{
 				printf(	"\n"
 						"<<->>+<><><><><><><><><><><><>+<<->>\n"
@@ -443,7 +443,7 @@ int P_ModificarProducto(eProductos productos[], int cantidad){
 							"<>-<>|     GUARDAR/SALIR      |<>-<>\n"
 							"<<->>+------------------------+<<->>\n");
 					if(PedirVerificacion("Desea guardar los cambios?","Opcion invalida")==1){
-						P_AddProducto(productos,pocicion,auxId,auxNombre,auxPrecio,auxCategoria,auxStock,auxIdUsuario);
+						P_AddProducto(productos,posicion,auxId,auxNombre,auxPrecio,auxCategoria,auxStock,auxIdUsuario);
 						puts("<<<<<| Guardardado exitoso |>>>>>");
 					}
 					finalizar =1;
@@ -477,19 +477,19 @@ int P_BajaDeUnProducto(eProductos productos[], int cantidad){
 	if(productos != NULL && cantidad > 0){
 		int auxId;
 		int maxId;
-		int pocicion;
+		int posicion;
 		maxId = P_BuscarIdMayor(productos,cantidad,OCUPADO);
 		P_MostrarProductos(productos,cantidad,OCUPADO);
 		if(getIntInRange("Ingrese una id:",3,0,maxId,"Id invalida,",&auxId)==1){
-			pocicion = P_FindProductoById(productos,cantidad,auxId);
+			posicion = P_FindProductoById(productos,cantidad,auxId);
 			printf( "Producto seleccionada para eliminar:\n"
 					"+------+---------------------+---------------------+---------------------+-----------+\n"
 					"|  Id  | Nombre de Producto  | Categoria           | Precio              | Stock     |\n"
 					"+------+---------------------+---------------------+---------------------+-----------+\n");
-			P_MostrarProducto(productos,pocicion);
+			P_MostrarProducto(productos,posicion);
 			puts(" ");
 			if(PedirVerificacion("Desea dar de baja este Producto?","Opcion invalida")==1){
-				productos[pocicion].isEmpty=BAJA;
+				productos[posicion].isEmpty=BAJA;
 				rtn =1;
 			}
 			else{
@@ -673,4 +673,128 @@ int T_SortProductos(eProductos producto[],int cantidad, int orden){
 		rtn = 1;
 	}
 return rtn;
+}
+
+int P_ReponerStockProducto(eProductos productos[], int cantidad,int idUsuario){
+	int rtn;
+
+	if(productos != NULL && cantidad > 0){
+		int auxId;
+		int auxStock;
+		int maxId;
+		int posicion;
+
+		maxId = P_BuscarIdMayor(productos,cantidad,OCUPADO);
+		P_MostrarProductosVendedor(productos,cantidad,OCUPADO,idUsuario);
+
+
+		if(getIntInRange("Ingrese una id:",3,0,maxId,"Id invalida,",&auxId)==1){
+			posicion = P_FindProductoById(productos,cantidad,auxId);
+			printf( "Producto a recargar Stock:\n"
+					"+------+---------------------+---------------------+---------------------+-----------+\n"
+					"|  Id  | Nombre de Producto  | Categoria           | Precio              | Stock     |\n"
+					"+------+---------------------+---------------------+---------------------+-----------+\n");
+			P_MostrarProducto(productos,posicion);
+			puts(" ");
+			if(getIntInRange("Ingrese stock a agregar",3,1,1000,"cantidad invalida,",&auxStock)== 1){
+				if(PedirVerificacion("Desea agregar el stock?","Opcion invalida")==1){
+					productos[posicion].stock+=auxStock;
+					rtn = 1;
+				}
+				else{rtn=-4;//error en verificacion o cancelacion
+				}
+			}
+			else{rtn=-3;//error en cargar id
+			}
+		}
+		else{rtn=-2;//error en pedir id
+		}
+	}
+	else{rtn=-1;//datos nulos
+	}
+	return rtn;
+}
+
+int P_FiltrarPorNombreDeProducto(eProductos producto[],int cantidad,int estado){
+	int rtn =-1;
+	char auxNombre[MAX_CHAR];
+	if(producto != NULL && cantidad >= 0){
+		if(GetArrayCharsAndIntWithRetrys("Ingrese nombre del producto a buscar:",3,"Nombre incorrecto",auxNombre,MAX_CHAR) == 1){
+			if(T_SortProductosPorStock(producto,cantidad)==1){
+				if(P_MostrarProductosPorNombre(producto,cantidad,estado,auxNombre)>0){
+					rtn=1;
+				}
+			}
+		}
+	}
+	return rtn;
+}
+
+int T_SortProductosPorStock(eProductos producto[],int cantidad){
+	int rtn = -1;
+	eProductos auxProducto;
+	int flagSwap;
+	int limite;
+	int i;
+
+	if(producto != NULL && cantidad >= 0){
+		limite = cantidad-1;
+		do{
+			flagSwap=0;
+			for (i = 0; i < limite; i++){
+				if(producto[i].isEmpty!=LIBRE){
+					if(strcmp(producto[i].nombreProducto , producto[i+1].nombreProducto)<0){
+						flagSwap=1;
+						auxProducto = producto[i];
+						producto[i] =	producto[i+1];
+						producto[i+1] = auxProducto;
+					}
+					if(strcmp(producto[i].nombreProducto , producto[i+1].nombreProducto) == 0){
+						flagSwap=1;
+						if(producto[i].stock < producto[i+1].stock){
+						auxProducto = producto[i];
+						producto[i] =	producto[i+1];
+						producto[i+1] = auxProducto;
+						}
+					}
+				}
+			}
+			limite--;
+		}while(flagSwap);
+		rtn = 1;
+	}
+return rtn;
+}
+
+int P_MostrarProductosPorNombre(eProductos productos[],int cantidad, int estado, char nombre[]){
+	int contador = -1;
+	int flagContador =-1;
+	if(productos != NULL && cantidad>0){
+		contador = 0;
+		printf( "+------+---------------------+---------------------+---------------------+-----------+\n"
+				"|  Id  | Nombre de Producto  | Categoria           | Precio              | Stock     |\n"
+				"+------+---------------------+---------------------+---------------------+-----------+\n");
+		for(int i = 0;i<cantidad;i++){
+			if(estado == 411 && productos[i].isEmpty> 0){
+				if(strcmp(productos[i].nombreProducto,nombre)==0){
+					P_MostrarProducto(productos,i);
+					contador++;
+					flagContador =1;
+				}
+			}
+			if( productos[i].isEmpty == estado && productos[i].stock > 0){
+				if(strcmp(productos[i].nombreProducto,nombre)==0){
+					P_MostrarProducto(productos,i);
+					contador++;
+					flagContador =1;
+				}
+			}
+		}
+		if(flagContador == -1){
+			printf( "+------------------------------------------------------------------------------------+\n"
+					"|  No hay productos para mostrar                                                     |\n"
+					"+------------------------------------------------------------------------------------+\n\n\n");
+		}
+	}
+	return contador;
 }

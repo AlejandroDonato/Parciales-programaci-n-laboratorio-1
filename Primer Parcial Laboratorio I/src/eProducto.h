@@ -176,4 +176,12 @@ int P_VerificarProductosDeOtros(eProductos productos[],int cantidad,int idUsuari
 /// @return rotorna 1 si salio bien y -1 para errores
 int T_SortProductos(eProductos producto[],int cantidad, int orden);
 
+int P_ReponerStockProducto(eProductos productos[], int cantidad,int idUsuario);
+
+int P_FiltrarPorNombreDeProducto(eProductos producto[],int cantidad,int estado);
+
+int T_SortProductosPorStock(eProductos producto[],int cantidad);
+
+int P_MostrarProductosPorNombre(eProductos productos[],int cantidad, int estado, char nombre[]);
+
 #endif /* EPRODUCTO_H_ */
