@@ -137,5 +137,8 @@ int Salon_findMinId(LinkedList* this);
 /// @return retorna el 1 si salio bien o -1 para error
 int Salon_isValid(Salon* this);
 
+int Salon_FilterByShoping( void* this);
+
+int Salon_FilterByLocal( void* this);
 
 #endif /* SALON_H_ */

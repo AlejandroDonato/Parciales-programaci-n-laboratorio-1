@@ -147,4 +147,9 @@ int Game_isValid(Game* this);
 /// @return retorna 1 si es mayor, -1 si es menor y 0 par igualdad
 int Game_sortByName( void* this1, void* this2);
 
+int Game_FilterByGeneroPlataforma( void* this);
+int Game_FilterByGeneroLaberinto( void* this);
+int Game_FilterByGeneroAventura( void* this);
+int Game_FilterByGeneroOtro( void* this);
+
 #endif /* JUEGO_H_ */

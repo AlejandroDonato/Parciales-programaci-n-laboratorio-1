@@ -43,10 +43,14 @@ int main(void){
     			"||  ----| Informes |----                                ||\n"
     			"||  (10). Menu de informes                              ||\n"
     			"||                                                      ||\n"
+    			"||  ----| Filtrar |----                                 ||\n"
+    			"||  (11). Filtrar salon por tipo                        ||\n"
+    			"||  (12). Filtrar juegos por tipo de plataforma         ||\n"
+    			"||                                                      ||\n"
     			"||  ( 0). Salir                                         ||\n"
     			"||                                                      ||\n"
     			"++------------------------------------------------------++\n");
-    		if(getIntInRange("Ingrese una opcion:",3,0,10,"Opcion invalida",&option) !=1){
+    		if(getIntInRange("Ingrese una opcion:",3,0,12,"Opcion invalida",&option) !=1){
     			controller_MensajeError("Error!, agotado numero de reintentos");
     			option =0;
     		}
@@ -164,6 +168,23 @@ int main(void){
             	else{controller_MensajeError("Error, no hay arcades cargados");
             	}
             	break;
+            /////////////////FILTRAR/////////////////
+            case 11:///Filtrar salon
+            	if(controller_countSalones(listaSalones)>0){
+            		controller_MensajeCabecera("Filtrar por tipo de salon ");
+            		controler_FiltrarPorSalon(listaSalones);
+            	}
+            	else{controller_MensajeError("No hay salones para mostrar ");
+            	}
+            	break;
+            case 12:///Filtrar juegos
+            	if(controller_countGames(listaSalones)>0){
+            		controller_MensajeCabecera("Filtrar por tipo de Plataforma");
+            		controler_FiltrarPorGeneroDeJuego(listaJuegos);
+            	}
+            	else{controller_MensajeError("No hay Juegos para mostrar");
+            	}
+            	break;
             /////////////////SALIR/////////////////
             case 0:///Guardar y salir
             	if(flagGuardar==1){
@@ -193,3 +214,4 @@ int main(void){
     return 0;
 }
 
+//agregar un filtro a la linkedlist

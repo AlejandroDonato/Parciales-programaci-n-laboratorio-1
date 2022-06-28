@@ -406,3 +406,48 @@ int Game_sortByName( void* this1, void* this2){
     }
     return rtn;
 }
+
+int Game_FilterByGeneroPlataforma( void* this){
+    int rtn = 0;
+    Game* auxGame;
+    if( this != NULL){
+    	auxGame = (Game*) this;
+        if(auxGame->genero == PLATAFORMA){
+        	rtn = 1;
+        }
+    }
+    return rtn;
+}
+int Game_FilterByGeneroLaberinto( void* this){
+    int rtn = 0;
+    Game* auxGame;
+    if( this != NULL){
+    	auxGame = (Game*) this;
+        if(auxGame->genero == LABERINTO){
+        	rtn = 1;
+        }
+    }
+    return rtn;
+}
+int Game_FilterByGeneroAventura( void* this){
+    int rtn = 0;
+    Game* auxGame;
+    if( this != NULL){
+    	auxGame = (Game*) this;
+        if(auxGame->genero == AVENTURA){
+        	rtn = 1;
+        }
+    }
+    return rtn;
+}
+int Game_FilterByGeneroOtro( void* this){
+    int rtn = 0;
+    Game* auxGame;
+    if( this != NULL){
+    	auxGame = (Game*) this;
+        if(auxGame->genero == OTRO){
+        	rtn = 1;
+        }
+    }
+    return rtn;
+}

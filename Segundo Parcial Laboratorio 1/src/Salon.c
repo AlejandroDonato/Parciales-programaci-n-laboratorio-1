@@ -391,3 +391,27 @@ int Salon_isValid(Salon* this){
     }
     return rtn;
 }
+
+int Salon_FilterByShoping( void* this){
+    int rtn = 0;
+    Salon* auxSalon;
+    if( this != NULL){
+    	auxSalon = (Salon*) this;
+        if(auxSalon->tipo == SHOPING){
+        	rtn = 1;
+        }
+    }
+    return rtn;
+}
+
+int Salon_FilterByLocal( void* this){
+    int rtn = 0;
+    Salon* auxSalon;
+    if( this != NULL){
+    	auxSalon = (Salon*) this;
+        if(auxSalon->tipo == LOCAL){
+        	rtn = 1;
+        }
+    }
+    return rtn;
+}

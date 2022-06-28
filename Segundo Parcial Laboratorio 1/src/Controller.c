@@ -568,6 +568,9 @@ int controller_ListGames(LinkedList* pListGames){
 				contador++;
 			}
 		}
+		if(contador==0){
+		printf( "| NO SE ENCONTRARON JUEGOS PARA LISTAR                                                                  |\n");
+		}
 		printf( "+----------+------------------------------+------------------------------+------------------------------+\n");
 	}
 	return contador;
@@ -1029,6 +1032,60 @@ int controller_ArcadesMonoPlataformaPorNombre(LinkedList* listaArcades,LinkedLis
 			printf( "| NO SE ENCONTRARON ARCADES PARA DOS JUGADORES O MAS                                                         |\n");
 		}
 		printf( 	"+------+---------------------+-----------+-----------+-----------+---------------------+---------------------+\n");
+	}
+	return rtn;
+}
+
+/////////////////FILTRAR/////////////////
+
+int controler_FiltrarPorSalon(LinkedList* listaSalones){
+	int rtn =-1;
+	if(listaSalones != NULL){
+		int option;
+		if(getIntInRange("\t( 1). Filtrar por Shoping\n\t( 2). Filtrar por Salon \n Ingrese una opcion:",3,1,2,"Opcion invalida",&option) ==1){
+			switch(option){
+			case 1:///Salones Filtrados por Shoping
+				controller_MensajeCabecera("Salones Filtrados por Shoping");
+				controller_ListSalones(ll_filter(listaSalones,Salon_FilterByShoping));
+				break;
+			case 2:///Salones Filtrados por local
+				controller_MensajeCabecera("Salones Filtrados por local");
+				controller_ListSalones(ll_filter(listaSalones,Salon_FilterByLocal));
+				break;
+			}
+		}
+		else{controller_MensajeError("Error!, agotado numero de reintentos");
+		}
+	}
+	return rtn;
+}
+
+int controler_FiltrarPorGeneroDeJuego(LinkedList* listaJuegos){
+	int rtn =-1;
+	if(listaJuegos != NULL){
+		int option;
+		if(getIntInRange("\t( 1). Filtrar por Plataforma\n\t( 2). Filtrar por Laberinto \n\t( 3). Filtrar por Aventura \n\t( 4). Filtrar por Otro \n Ingrese una opcion:",3,1,4,"Opcion invalida",&option) ==1){
+			switch(option){
+			case 1:///Juegos filtrados por genero Plataforma
+				controller_MensajeCabecera("Juegos filtrados por genero Plataforma");
+				controller_ListGames(ll_filter(listaJuegos,Game_FilterByGeneroPlataforma));
+				break;
+			case 2:///Juegos filtrados por genero Laberinto
+				controller_MensajeCabecera("Juegos filtrados por genero Laberinto");
+				controller_ListGames(ll_filter(listaJuegos,Game_FilterByGeneroLaberinto));
+				break;
+			case 3:///Juegos filtrados por genero Aventura
+				controller_MensajeCabecera("Juegos filtrados por genero Aventura");
+				controller_ListGames(ll_filter(listaJuegos,Game_FilterByGeneroAventura));
+				break;
+			case 4:///Juegos filtrados por genero Otro
+				controller_MensajeCabecera("Juegos filtrados por genero Otro");
+				controller_ListGames(ll_filter(listaJuegos,Game_FilterByGeneroOtro));
+				break;
+			}
+		}
+		else{controller_MensajeError("Error!, agotado numero de reintentos");
+		}
 	}
 	return rtn;
 }

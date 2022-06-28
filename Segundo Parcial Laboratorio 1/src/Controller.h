@@ -235,4 +235,8 @@ void controller_MensajeExitoso(char mensaje[]);
 /// @param mensaje dentro del marco
 void controller_MensajeError(char mensaje[]);
 
+int controler_FiltrarPorSalon(LinkedList* listaSalones);
+
+int controler_FiltrarPorGeneroDeJuego(LinkedList* listaJuegos);
+
 #endif
